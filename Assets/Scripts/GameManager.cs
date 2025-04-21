@@ -70,6 +70,30 @@ public class GameManager : MonoBehaviour
 
         _socket.SendNetworkMessage(msg);
     }
+    
+    public void SendOpenDoorCommand(string doorId) {
+        var msg = new NetworkMessage {
+            type = "command",
+            payload = new Payload {
+                action = "open_door",
+                target = doorId
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+    }
+    
+    public void SendCloseDoorCommand(string doorId) {
+        var msg = new NetworkMessage {
+            type = "command",
+            payload = new Payload {
+                action = "close_door",
+                target = doorId
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+    }
 
     
     void Start()
