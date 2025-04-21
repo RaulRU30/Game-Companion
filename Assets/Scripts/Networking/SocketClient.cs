@@ -12,7 +12,7 @@ namespace Networking
         private TcpClient _client;
         private NetworkStream _stream;
     
-        public Action<String> OnMessageReceived;
+        public Action<string> OnMessageReceived;
 
         public void ConnectToServer(string ip) {
             try {
@@ -39,12 +39,12 @@ namespace Networking
 
         
         public void SendMessageToServer(string message) {
-            if (_client == null || !_client.Connected) {
+            if (_client is not { Connected: true }) {
                 Debug.LogWarning("⚠️ No hay conexión activa con el servidor.");
                 return;
             }
 
-            if (_stream != null && _stream.CanWrite) {
+            if (_stream is { CanWrite: true }) {
                 byte[] data = Encoding.ASCII.GetBytes(message);
                 _stream.Write(data, 0, data.Length);
                 Debug.Log("📤 Mensaje enviado: " + message);

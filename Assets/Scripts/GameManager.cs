@@ -35,8 +35,7 @@ public class GameManager : MonoBehaviour
         
         switch (message.type) {
             case "position":
-                Vector3 pos = new Vector3(message.payload.x, message.payload.y, message.payload.z);
-                Debug.Log("Player position received: " + pos);
+                UpdatePlayerIcon(message.payload);
                 break;
 
             case "event":
