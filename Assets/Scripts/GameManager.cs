@@ -6,34 +6,32 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private ClientDiscovery _discovery;
+
     private SocketClient _socket;
-    
+
     [SerializeField] private RectTransform playerIcon;
+    [SerializeField] private string serverIP = "192.168.1.78";
 
     private void Awake()
     {
-        _discovery = GetComponent<ClientDiscovery>();
         _socket = GetComponent<SocketClient>();
 
-        if (_discovery == null || _socket == null) {
+        if (_socket == null)
+        {
             Debug.LogError("Missing required components: ClientDiscovery and/or SocketClient");
             return;
         }
 
-        _discovery.OnServerFound += (ip) => {
-            Debug.Log("Server found, connecting to: " + ip);
-            _socket.ConnectToServer(ip);
-        };
-        
         _socket.OnMessageReceived += HandleServerMessage;
     }
-    
-    private void HandleServerMessage(string json) {
-        
+
+    private void HandleServerMessage(string json)
+    {
+
         NetworkMessage message = JsonUtility.FromJson<NetworkMessage>(json);
-        
-        switch (message.type) {
+
+        switch (message.type)
+        {
             case "position":
                 UpdatePlayerIcon(message.payload);
                 break;
@@ -47,9 +45,10 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    
-    private void UpdatePlayerIcon(Payload payload) {
-        Vector2 position2D = new Vector2(payload.x, payload.z); 
+
+    private void UpdatePlayerIcon(Payload payload)
+    {
+        Vector2 position2D = new Vector2(payload.x, payload.z);
         playerIcon.anchoredPosition = position2D * 20f;
 
         float rotationY = payload.rotationY;
@@ -58,11 +57,14 @@ public class GameManager : MonoBehaviour
         Debug.Log($"Icon updated: Pos({position2D}), Rot({rotationY}°)");
     }
 
-    
-    public void SendTrapCommand(string trapId) {
-        var msg = new NetworkMessage {
+
+    public void SendTrapCommand(string trapId)
+    {
+        var msg = new NetworkMessage
+        {
             type = "command",
-            payload = new Payload {
+            payload = new Payload
+            {
                 action = "activate_trap",
                 target = trapId
             }
@@ -70,13 +72,16 @@ public class GameManager : MonoBehaviour
 
         _socket.SendNetworkMessage(msg);
     }
-    
-    
-    
-    public void SendOpenDoorCommand(string doorId) {
-        var msg = new NetworkMessage {
+
+
+
+    public void SendOpenDoorCommand(string doorId)
+    {
+        var msg = new NetworkMessage
+        {
             type = "command",
-            payload = new Payload {
+            payload = new Payload
+            {
                 action = "open_door",
                 target = doorId
             }
@@ -84,11 +89,14 @@ public class GameManager : MonoBehaviour
 
         _socket.SendNetworkMessage(msg);
     }
-    
-    public void SendCloseDoorCommand(string doorId) {
-        var msg = new NetworkMessage {
+
+    public void SendCloseDoorCommand(string doorId)
+    {
+        var msg = new NetworkMessage
+        {
             type = "command",
-            payload = new Payload {
+            payload = new Payload
+            {
                 action = "close_door",
                 target = doorId
             }
@@ -97,25 +105,20 @@ public class GameManager : MonoBehaviour
         _socket.SendNetworkMessage(msg);
     }
 
-    
+
     void Start()
     {
-        _discovery.StartDiscovery();
+        Debug.Log("Connecting manually to: " + serverIP);
+        _socket.ConnectToServer(serverIP);
     }
-    
-    public void SendOpenDoorCommand() {
+
+    public void SendOpenDoorCommand()
+    {
         _socket.SendMessageToServer("open_door");
     }
-    
-    public void SendCustomCommand(string command) {
-        _socket.SendMessageToServer(command);
-    }
 
-
-
-    // Update is called once per frame
-    void Update()
+    public void SendCustomCommand(string command)
     {
-        
+        _socket.SendMessageToServer(command);
     }
 }
