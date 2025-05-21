@@ -108,8 +108,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Connecting manually to: " + serverIP);
-        _socket.ConnectToServer(serverIP);
     }
 
     public void SendOpenDoorCommand()

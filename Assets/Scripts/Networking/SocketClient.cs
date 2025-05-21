@@ -13,13 +13,16 @@ namespace Networking
         private NetworkStream _stream;
     
         public Action<string> OnMessageReceived;
+        public Action OnConnected;
 
         public void ConnectToServer(string ip) {
             try {
                 _client = new TcpClient();
                 _client.Connect(ip, 1337);
                 _stream = _client.GetStream();
-
+                
+                OnConnected?.Invoke();
+                
                 Debug.Log("Connected to server at: " + ip);
                 StartCoroutine(ListenToServer());
             
