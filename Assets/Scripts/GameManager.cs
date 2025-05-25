@@ -49,12 +49,15 @@ public class GameManager : MonoBehaviour
     private void UpdatePlayerIcon(Payload payload)
     {
         Vector2 position2D = new Vector2(payload.x, payload.z);
-        playerIcon.anchoredPosition = position2D * 20f;
+    Vector2 offset = new Vector2(-334.6f, 296.5f);  // ajustado manualmente
+    float scale = 20f;
 
-        float rotationY = payload.rotationY;
-        playerIcon.rotation = Quaternion.Euler(0, 0, -rotationY);
+    playerIcon.anchoredPosition = position2D * scale + offset;
 
-        Debug.Log($"Icon updated: Pos({position2D}), Rot({rotationY}°)");
+    float rotationY = payload.rotationY;
+    playerIcon.rotation = Quaternion.Euler(0, 0, -rotationY);
+
+    Debug.Log($"Icon updated: Pos({position2D}), Rot({rotationY})");
     }
 
 
