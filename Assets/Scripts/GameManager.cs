@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
 
     public void SendOpenDoorCommand(string doorId)
     {
+        Debug.Log("Button pressed");
         var msg = new NetworkMessage
         {
             type = "command",
