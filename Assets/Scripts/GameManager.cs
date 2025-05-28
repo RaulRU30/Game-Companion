@@ -6,37 +6,39 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private ClientDiscovery _discovery;
+
     private SocketClient _socket;
-    
+    //Vector2 worldMin = new Vector2(-3.9f, -35.72f);
+    //Vector2 worldMax = new Vector2(51.89f, 12.04f);
+
     [SerializeField] private RectTransform playerIcon;
+    [SerializeField] private string serverIP = "192.168.1.78";
+    [SerializeField] private Vector2 worldMin = new Vector2(-3.9f, -35.72f);
+    [SerializeField] private Vector2 worldMax = new Vector2(20f, 12.04f);
+    [SerializeField] private RectTransform mapRect;
 
     private void Awake()
     {
-        _discovery = GetComponent<ClientDiscovery>();
         _socket = GetComponent<SocketClient>();
 
-        if (_discovery == null || _socket == null) {
+        if (_socket == null)
+        {
             Debug.LogError("Missing required components: ClientDiscovery and/or SocketClient");
             return;
         }
 
-        _discovery.OnServerFound += (ip) => {
-            Debug.Log("Server found, connecting to: " + ip);
-            _socket.ConnectToServer(ip);
-        };
-        
         _socket.OnMessageReceived += HandleServerMessage;
     }
-    
-    private void HandleServerMessage(string json) {
-        
+
+    private void HandleServerMessage(string json)
+    {
+
         NetworkMessage message = JsonUtility.FromJson<NetworkMessage>(json);
-        
-        switch (message.type) {
+
+        switch (message.type)
+        {
             case "position":
-                Vector3 pos = new Vector3(message.payload.x, message.payload.y, message.payload.z);
-                Debug.Log("Player position received: " + pos);
+                UpdatePlayerIcon(message.payload);
                 break;
 
             case "event":
@@ -48,22 +50,37 @@ public class GameManager : MonoBehaviour
                 break;
         }
     }
-    
-    private void UpdatePlayerIcon(Payload payload) {
-        Vector2 position2D = new Vector2(payload.x, payload.z); 
-        playerIcon.anchoredPosition = position2D * 20f;
+
+    private void UpdatePlayerIcon(Payload payload)
+    {
+        Vector2 worldPos = new Vector2(payload.x, payload.z);
+        Vector2 offset = new Vector2(-420f, 310f); // ajustar hasta que quede alineado
+        
+        float normX = Mathf.InverseLerp(worldMin.x, worldMax.x, worldPos.x);
+        float normY = Mathf.InverseLerp(worldMin.y, worldMax.y, worldPos.y);
+
+        float mapWidth = mapRect.rect.width;
+        float mapHeight = mapRect.rect.height;
+
+        float posX = Mathf.Clamp(normX * mapWidth, 5f, mapWidth - 5f);
+        float posY = -(1f - normY) * mapHeight;
+
+        playerIcon.anchoredPosition = new Vector2(posX, posY) + offset;
 
         float rotationY = payload.rotationY;
         playerIcon.rotation = Quaternion.Euler(0, 0, -rotationY);
 
-        Debug.Log($"Icon updated: Pos({position2D}), Rot({rotationY}°)");
+        //Debug.Log($"Icon updated: Pos({position2D}), Rot({rotationY})");
     }
 
-    
-    public void SendTrapCommand(string trapId) {
-        var msg = new NetworkMessage {
+
+    public void SendTrapCommand(string trapId)
+    {
+        var msg = new NetworkMessage
+        {
             type = "command",
-            payload = new Payload {
+            payload = new Payload
+            {
                 action = "activate_trap",
                 target = trapId
             }
@@ -72,25 +89,81 @@ public class GameManager : MonoBehaviour
         _socket.SendNetworkMessage(msg);
     }
 
-    
+
+
+    public void SendOpenDoorCommand(string doorId)
+    {
+        Debug.Log("Button pressed");
+        var msg = new NetworkMessage
+        {
+            type = "command",
+            payload = new Payload
+            {
+                action = "open_door",
+                target = doorId
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+    }
+
+    public void SendCloseDoorCommand(string doorId)
+    {
+        var msg = new NetworkMessage
+        {
+            type = "command",
+            payload = new Payload
+            {
+                action = "close_door",
+                target = doorId
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+    }
+
+
     void Start()
     {
-        _discovery.StartDiscovery();
     }
-    
-    public void SendOpenDoorCommand() {
+
+    public void SendOpenDoorCommand()
+    {
         _socket.SendMessageToServer("open_door");
     }
-    
-    public void SendCustomCommand(string command) {
+
+    public void SendCustomCommand(string command)
+    {
         _socket.SendMessageToServer(command);
     }
 
-
-
-    // Update is called once per frame
-    void Update()
+    public void SendOpenNearestDoorCommand()
     {
-        
+        var msg = new NetworkMessage
+        {
+            type = "command",
+            payload = new Payload
+            {
+                action = "open_nearest_door"
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+        Debug.Log("📨 Sent command: open_nearest_door");
+    }
+
+    public void SendCloseNearestDoorCommand()
+    {
+        var msg = new NetworkMessage
+        {
+            type = "command",
+            payload = new Payload
+            {
+                action = "close_nearest_door"
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+        Debug.Log("📨 Sent command: close_nearest_door");
     }
 }
