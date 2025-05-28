@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         Vector2 worldPos = new Vector2(payload.x, payload.z);
         Vector2 offset = new Vector2(-420f, 310f); // ajustar hasta que quede alineado
-        
+
         float normX = Mathf.InverseLerp(worldMin.x, worldMax.x, worldPos.x);
         float normY = Mathf.InverseLerp(worldMin.y, worldMax.y, worldPos.y);
 
@@ -165,5 +165,20 @@ public class GameManager : MonoBehaviour
 
         _socket.SendNetworkMessage(msg);
         Debug.Log("📨 Sent command: close_nearest_door");
+    }
+    public void SendDropBombCommand()
+    {
+        var msg = new NetworkMessage
+        {
+            type = "command",
+            payload = new Payload
+            {
+                action = "drop_bomb",
+                target = "player"  // can be anything, or even empty
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+        Debug.Log("💣 Drop bomb command sent to VR game.");
     }
 }
