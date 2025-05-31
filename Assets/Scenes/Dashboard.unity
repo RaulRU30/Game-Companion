@@ -4068,7 +4068,7 @@ MonoBehaviour:
   point1: {x: -140, y: 153}
   point2: {x: -182, y: 60}
   point3: {x: -174, y: 194}
-  point4: {x: 75, y: -165}
+  point4: {x: -284, y: 140}
   activationRadius: 20
 --- !u!114 &867050198
 MonoBehaviour:
@@ -6006,7 +6006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1345477023
 RectTransform:
   m_ObjectHideFlags: 0
