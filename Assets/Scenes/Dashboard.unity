@@ -4068,7 +4068,7 @@ MonoBehaviour:
   point1: {x: -140, y: 153}
   point2: {x: -182, y: 60}
   point3: {x: -174, y: 194}
-  point4: {x: -284, y: 140}
+  point4: {x: 75, y: -170}
   activationRadius: 20
 --- !u!114 &867050198
 MonoBehaviour:
