@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class GameTimer : MonoBehaviour
 {
@@ -70,5 +72,13 @@ public class GameTimer : MonoBehaviour
         {
             ti.MarcarCompletado();
         }
+
+        StartCoroutine(LoadGameOverScene());
+    }
+
+    private IEnumerator LoadGameOverScene()
+    {
+        yield return new WaitForSeconds(2f); // Pequeño delay visual
+        SceneManager.LoadScene("GameOver"); // Usa el nombre exacto de la escena
     }
 }
