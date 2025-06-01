@@ -37,12 +37,16 @@ public class GameManager : MonoBehaviour
 
         switch (message.type)
         {
-            case "position":
-                UpdatePlayerIcon(message.payload);
+            case "event":
+                if (message.payload.action == "collect_key")
+                {
+                    string keyId = message.payload.target;
+                    FindObjectOfType<KeyTracker>()?.MarkKeyCollected(keyId);
+                }
                 break;
 
-            case "event":
-                Debug.Log($"Event: {message.payload.name} in room {message.payload.room}");
+            case "position":
+                UpdatePlayerIcon(message.payload);
                 break;
 
             default:
@@ -165,5 +169,20 @@ public class GameManager : MonoBehaviour
 
         _socket.SendNetworkMessage(msg);
         Debug.Log("📨 Sent command: close_nearest_door");
+    }
+
+    public void SimularRecolectarLlave(string keyId)
+    {
+        var msgJson = JsonUtility.ToJson(new NetworkMessage
+        {
+            type = "event",
+            payload = new Payload
+            {
+                action = "collect_key",
+                target = keyId
+            }
+        });
+
+        HandleServerMessage(msgJson);
     }
 }
