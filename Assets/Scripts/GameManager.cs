@@ -48,7 +48,9 @@ public class GameManager : MonoBehaviour
             case "position":
                 UpdatePlayerIcon(message.payload);
                 break;
-
+            case "GeneratorCode":
+                Debug.Log("si llega el mensaje " + message.payload.code);
+                break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
                 break;

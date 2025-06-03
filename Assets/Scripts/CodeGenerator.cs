@@ -23,7 +23,7 @@ public class CodeGenerator : MonoBehaviour
             generatedCode += randomChar;
         }
 
-        Debug.Log("Código generado: " + generatedCode);
+        //Debug.Log("Cï¿½digo generado: " + generatedCode);
     }
 
     public string GetGeneratedCode()
