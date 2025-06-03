@@ -9,17 +9,18 @@ public class CodeGenerator : MonoBehaviour
 
     void Start()
     {
-        GenerateCode();
+        //GenerateCode();
     }
 
-    public void GenerateCode()
+    public void GenerateCode(string code)
     {
         generatedCode = "";
 
         for (int i = 0; i < codeSlots.Length; i++)
         {
             string randomChar = possibleLetters[Random.Range(0, possibleLetters.Length)];
-            codeSlots[i].text = randomChar;
+            codeSlots[i].text = code[i].ToString();
+            //randomChar;
             generatedCode += randomChar;
         }
 

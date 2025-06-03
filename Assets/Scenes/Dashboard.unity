@@ -170,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &47819480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4899,6 +4899,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec20a184c08119844af6c4376219efa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  codeSlotsText:
+  - {fileID: 1424499267}
+  - {fileID: 967674471}
+  - {fileID: 1339384826}
+  - {fileID: 410720370}
+  - {fileID: 1745925912}
+  - {fileID: 54441499}
+  codeSlotsImage:
+  - {fileID: 1475048549}
+  - {fileID: 290632061}
+  - {fileID: 1014354034}
+  - {fileID: 221066798}
+  - {fileID: 960493596}
+  - {fileID: 1621730411}
+  successIndicator: {fileID: 855791134}
   playerIcon: {fileID: 1964741879}
   serverIP: 192.168.1.78
   worldMin: {x: -3.9, y: -35.72}
@@ -7176,7 +7191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.28702116, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.20784314, g: 0.62352943, b: 0.69803923, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

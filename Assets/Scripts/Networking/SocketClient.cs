@@ -64,7 +64,7 @@ namespace Networking
                 if (_stream.DataAvailable) {
                     string line = reader.ReadLine();
                     if (!string.IsNullOrEmpty(line)) {
-                        Debug.Log("📥 Received: " + line);
+//                        Debug.Log("📥 Received: " + line);
                         OnMessageReceived?.Invoke(line);
                     }
                 }

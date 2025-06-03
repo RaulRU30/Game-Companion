@@ -2,12 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Networking;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
     private SocketClient _socket;
+     public TextMeshProUGUI[] codeSlotsText;
+     private Color defaultColor = new Color32(0x35, 0x9E, 0xB2, 0xFF); // #359EB2
+     public Image[] codeSlotsImage;
+    public Image successIndicator;
+    private int currentIndex = 0;
     //Vector2 worldMin = new Vector2(-3.9f, -35.72f);
     //Vector2 worldMax = new Vector2(51.89f, 12.04f);
 
@@ -49,7 +56,11 @@ public class GameManager : MonoBehaviour
                 UpdatePlayerIcon(message.payload);
                 break;
             case "GeneratorCode":
-                Debug.Log("si llega el mensaje " + message.payload.code);
+                Debug.Log("New Code: " + message.payload.code);
+                ChangeCode(message.payload.code);
+                break;
+            case "IndexCode":
+                Debug.Log("si llega el mensaje " + message.payload.codeindex);
                 break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
@@ -79,6 +90,11 @@ public class GameManager : MonoBehaviour
         //Debug.Log($"Icon updated: Pos({position2D}), Rot({rotationY})");
     }
 
+    public void ChangeCode(string code){
+        for (int i = 0; i < codeSlotsText.Length; i++){
+            codeSlotsText[i].text = code[i].ToString();
+        }
+    }
 
     public void SendTrapCommand(string trapId)
     {
