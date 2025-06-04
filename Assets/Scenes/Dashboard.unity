@@ -170,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &47819480
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4954,6 +4954,7 @@ MonoBehaviour:
   panelDashboard: {fileID: 1025409197}
   panelGame1: {fileID: 85323524}
   panelGame2: {fileID: 47819479}
+  gameManager: {fileID: 867050196}
 --- !u!114 &867050199
 MonoBehaviour:
   m_ObjectHideFlags: 0

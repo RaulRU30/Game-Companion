@@ -5,6 +5,7 @@ public class PanelSwitcher : MonoBehaviour
     public GameObject panelDashboard;
     public GameObject panelGame1;
     public GameObject panelGame2;
+    public GameManager gameManager;
 
     public void OpenPanelGame1()
     {
@@ -16,6 +17,7 @@ public class PanelSwitcher : MonoBehaviour
     {
         panelDashboard.SetActive(false);
         panelGame2.SetActive(true);
+        gameManager.SendActive(1);
     }
 
     public void ReturnToDashboard()
