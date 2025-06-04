@@ -203,4 +203,19 @@ public class GameManager : MonoBehaviour
 
         HandleServerMessage(msgJson);
     }
+
+    public void SendStartKeyGameCommand()
+    {
+        var msg = new NetworkMessage
+        {
+            type = "command",
+            payload = new Payload
+            {
+                action = "start_key_game"
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+        Debug.Log("📨 Enviado: start_key_game");
+    }
 }
