@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class KeyTracker : MonoBehaviour
 {
-    public KeyTracker keyTracker;
     [System.Serializable]
     public class KeyUI
     {

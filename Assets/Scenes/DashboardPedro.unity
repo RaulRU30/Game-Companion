@@ -4696,6 +4696,8 @@ MonoBehaviour:
   - {fileID: 410720370}
   - {fileID: 1745925912}
   - {fileID: 54441499}
+  correctColor: {r: 0, g: 1, b: 0, a: 1}
+  wrongColor: {r: 1, g: 0, b: 0, a: 1}
   codeSlotsImage:
   - {fileID: 1475048549}
   - {fileID: 290632061}
@@ -4703,7 +4705,9 @@ MonoBehaviour:
   - {fileID: 221066798}
   - {fileID: 960493596}
   - {fileID: 1621730411}
+  game2Location: {fileID: 0}
   successIndicator: {fileID: 855791134}
+  taskIndicators: []
   panelSwitcher: {fileID: 867050198}
   playerIcon: {fileID: 1964741879}
   serverIP: 192.168.1.78
@@ -6728,7 +6732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1345477023
 RectTransform:
   m_ObjectHideFlags: 0
