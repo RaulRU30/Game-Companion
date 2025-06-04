@@ -39,6 +39,7 @@ public class PanelSwitcher : MonoBehaviour
         minimap.SetActive(false);
         panelDashboard.SetActive(false);
         panelGame2.SetActive(true);
+        gameManager.SendStartCode();
     }
 
     public void ReturnToDashboard()

@@ -12,9 +12,12 @@ public class GameManager : MonoBehaviour
     private SocketClient _socket;
      public TextMeshProUGUI[] codeSlotsText;
      private Color defaultColor = new Color32(0x35, 0x9E, 0xB2, 0xFF); // #359EB2
+     public Color correctColor = Color.green;
+    public Color wrongColor = Color.red;
      public Image[] codeSlotsImage;
+    public Image game2Location;
     public Image successIndicator;
-    private int currentIndex = 0;
+    public TaskIndicator[] taskIndicators;
     //Vector2 worldMin = new Vector2(-3.9f, -35.72f);
     //Vector2 worldMax = new Vector2(51.89f, 12.04f);
 
@@ -61,7 +64,13 @@ public class GameManager : MonoBehaviour
                 ChangeCode(message.payload.code);
                 break;
             case "IndexCode":
-                Debug.Log("si llega el mensaje " + message.payload.codeindex);
+                Debug.Log("indice " + message.payload.codeindex + " estado " + message.payload.state);
+                if(message.payload.state == 1)//correcta    
+                    codeSlotsImage[message.payload.codeindex].color = correctColor;
+                if (message.payload.state == 2)//incorrecta
+                    OnWrongInput();
+                if (message.payload.state == 3)//tarea completada
+                    OnCodeCompleted();
                 break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
@@ -96,7 +105,33 @@ public class GameManager : MonoBehaviour
             codeSlotsText[i].text = code[i].ToString();
         }
     }
+    private void OnCodeCompleted()
+    {
+        if (successIndicator != null)
+            successIndicator.color = Color.green;
+        ChangeComplateTask(1);
+        Destroy(game2Location);
+    }
+    private void Reset()
+    {
+        for (int i = 0; i < codeSlotsImage.Length; i++)
+        {
+            codeSlotsImage[i].color = defaultColor;
+        }
+    }
+    private void OnWrongInput()
+    {
+        for (int i = 0; i < codeSlotsImage.Length; i++)
+        {
+            codeSlotsImage[i].color = wrongColor;
+        }
 
+        Invoke(nameof(Reset), 1.0f);
+    }
+    private void ChangeComplateTask(int Taskindex)
+    {
+        taskIndicators[Taskindex].MarcarCompletado();
+    }
     public void SendTrapCommand(string trapId)
     {
         var msg = new NetworkMessage
@@ -112,7 +147,19 @@ public class GameManager : MonoBehaviour
         _socket.SendNetworkMessage(msg);
     }
 
+    public void SendStartCode()
+    {
+        var msg = new NetworkMessage
+        {
+            type = "StartCode",
+            payload = new Payload
+            {
+                state=1,
+            }
+        };
 
+        _socket.SendNetworkMessage(msg);
+    }
 
     public void SendOpenDoorCommand(string doorId)
     {
