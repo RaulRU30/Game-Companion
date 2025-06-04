@@ -134,6 +134,12 @@ public class GameManager : MonoBehaviour
     private void ChangeComplateTask(int Taskindex)
     {
         taskIndicators[Taskindex].MarcarCompletado();
+        currentIndex++;
+        if (currentIndex >= 4)
+        {
+            SendWinCommand();
+        }
+            
     }
     public void SendTrapCommand(string trapId)
     {
@@ -149,6 +155,19 @@ public class GameManager : MonoBehaviour
 
         _socket.SendNetworkMessage(msg);
     }
+    
+     public void SendWinCommand()
+    {
+        var msg = new NetworkMessage
+        {
+            type = "wincommand",
+            payload = new Payload
+            {
+            }
+        };
+
+        _socket.SendNetworkMessage(msg);
+    }
 
     public void SendStartCode()
     {
@@ -157,7 +176,7 @@ public class GameManager : MonoBehaviour
             type = "StartCode",
             payload = new Payload
             {
-                state=1,
+                state = 1,
             }
         };
 
@@ -289,7 +308,7 @@ public class GameManager : MonoBehaviour
             break;
         }
     }
-
+    ChangeComplateTask(0);
     if (todasRecolectadas && panelSwitcher != null)
     {
         Debug.Log("✅ Todas las llaves recolectadas. Regresando al dashboard...");
