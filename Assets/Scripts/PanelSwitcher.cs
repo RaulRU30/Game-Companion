@@ -9,6 +9,7 @@ public class PanelSwitcher : MonoBehaviour
     public KeyTracker keyTracker;
     public GameManager gameManager;
     public GameObject game2Location;
+    public GameObject keyManager;
 
     public void OpenPanelGame1()
     {
@@ -16,6 +17,7 @@ public class PanelSwitcher : MonoBehaviour
         minimap.SetActive(true);
         panelDashboard.SetActive(false);
         panelGame1.SetActive(true);
+        keyManager.SetActive(true);
 
         if (keyTracker != null)
             keyTracker.MostrarTodasLasLlaves();

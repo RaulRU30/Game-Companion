@@ -45,13 +45,14 @@ public class GameManager : MonoBehaviour
         switch (message.type)
         {
             case "event":
-                if (message.payload.action == "collect_key")
-                {
-                    string keyId = message.payload.target;
-                    FindObjectOfType<KeyTracker>()?.MarkKeyCollected(keyId);
-                }
-                break;
-
+            switch (message.payload.action)
+            {
+                case "collect_key":
+                    Debug.Log($"📩 Recibido: collect_key {message.payload.target}");
+                    OcultarIconoLlave(message.payload.target);
+                    break;
+            }
+            break;
             case "position":
                 UpdatePlayerIcon(message.payload);
                 break;
@@ -216,6 +217,16 @@ public class GameManager : MonoBehaviour
         };
 
         _socket.SendNetworkMessage(msg);
-        Debug.Log("📨 Enviado: start_key_game");
+        Debug.Log("📨 Enviado: start_key_game: " + msg.payload.action);
+    }
+
+    private void OcultarIconoLlave(string keyId)
+    {
+        Transform keysParent = GameObject.Find("Keys")?.transform;
+        if (keysParent == null) return;
+
+        Transform icono = keysParent.Find(keyId);
+        if (icono != null)
+            icono.gameObject.SetActive(false);
     }
 }
