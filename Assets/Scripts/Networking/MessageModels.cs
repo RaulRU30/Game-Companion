@@ -1,5 +1,4 @@
 using System;
-using System.Drawing;
 
 namespace Networking
 {
@@ -18,8 +17,8 @@ namespace Networking
         public string target;
         public string name;
         public string room;
-        public int codeindex;
         public int state;
-        public String code;
+        public string code;
+        public int codeindex;
     }
 }

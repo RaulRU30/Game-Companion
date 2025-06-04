@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
 {
 
     private SocketClient _socket;
-     public TextMeshProUGUI[] codeSlotsText;
-     private Color defaultColor = new Color32(0x35, 0x9E, 0xB2, 0xFF); // #359EB2
-     public Color correctColor = Color.green;
+    public TextMeshProUGUI[] codeSlotsText;
+    private Color defaultColor = new Color32(0x35, 0x9E, 0xB2, 0xFF); // #359EB2
+    public Color correctColor = Color.green;
     public Color wrongColor = Color.red;
-     public Image[] codeSlotsImage;
+    public Image[] codeSlotsImage;
     public Image game2Location;
     public Image successIndicator;
     public TaskIndicator[] taskIndicators;
@@ -290,7 +290,7 @@ public class GameManager : MonoBehaviour
     if (todasRecolectadas && panelSwitcher != null)
     {
         Debug.Log("✅ Todas las llaves recolectadas. Regresando al dashboard...");
-        panelSwitcher.ReturnToDashboard();
+        panelSwitcher.ReturnToDashboard()`;
     }
     }
 }
