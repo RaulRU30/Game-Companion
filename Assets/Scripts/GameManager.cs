@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
      public Image[] codeSlotsImage;
     public Image successIndicator;
     private int currentIndex = 0;
+    public PanelSwitcher panelSwitcher;
     //Vector2 worldMin = new Vector2(-3.9f, -35.72f);
     //Vector2 worldMax = new Vector2(51.89f, 12.04f);
 
@@ -228,5 +229,22 @@ public class GameManager : MonoBehaviour
         Transform icono = keysParent.Find(keyId);
         if (icono != null)
             icono.gameObject.SetActive(false);
+
+             bool todasRecolectadas = true;
+
+    foreach (Transform keyIcon in keysParent)
+    {
+        if (keyIcon.gameObject.activeSelf)
+        {
+            todasRecolectadas = false;
+            break;
+        }
+    }
+
+    if (todasRecolectadas && panelSwitcher != null)
+    {
+        Debug.Log("✅ Todas las llaves recolectadas. Regresando al dashboard...");
+        panelSwitcher.ReturnToDashboard();
+    }
     }
 }
