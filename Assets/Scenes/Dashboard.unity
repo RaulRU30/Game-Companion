@@ -4711,7 +4711,7 @@ MonoBehaviour:
   playerIcon: {fileID: 1964741879}
   buttonGame1: {fileID: 305395346}
   buttonGame2: {fileID: 798595278}
-  point1: {x: -140, y: 153}
+  point1: {x: 82, y: 134}
   point2: {x: -182, y: 60}
   point3: {x: -174, y: 194}
   point4: {x: 75, y: -170}
@@ -6348,7 +6348,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1345477023
 RectTransform:
   m_ObjectHideFlags: 0
