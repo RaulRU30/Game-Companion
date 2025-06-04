@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
             case "IndexCode":
                 Debug.Log("si llega el mensaje " + message.payload.codeindex);
                 break;
+            case "TaskComplate":
+                
+                break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
                 break;
