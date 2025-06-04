@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
                 ChangeCode(message.payload.code);
                 break;
             case "IndexCode":
-                Debug.Log("si llega el mensaje " + message.payload.codeindex);
+                Debug.Log("indice: " + message.payload.codeindex + " estado: " + message.payload.state);
                 break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
@@ -95,7 +95,18 @@ public class GameManager : MonoBehaviour
             codeSlotsText[i].text = code[i].ToString();
         }
     }
+    public void SendActive(int index){
+        var msg = new NetworkMessage
+        {
+            type = "StartCode",
+            payload = new Payload
+            {
+                codeindex = index,
 
+            }
+        };
+        _socket.SendNetworkMessage(msg);
+    }
     public void SendTrapCommand(string trapId)
     {
         var msg = new NetworkMessage
