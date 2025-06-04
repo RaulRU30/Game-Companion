@@ -11,14 +11,11 @@ public class GameManager : MonoBehaviour
 {
 
     private SocketClient _socket;
-    public TextMeshProUGUI[] codeSlotsText;
-    private Color defaultColor = new Color32(0x35, 0x9E, 0xB2, 0xFF); // #359EB2
-    public Image[] codeSlotsImage;
+     public TextMeshProUGUI[] codeSlotsText;
+     private Color defaultColor = new Color32(0x35, 0x9E, 0xB2, 0xFF); // #359EB2
+     public Image[] codeSlotsImage;
     public Image successIndicator;
-    public Color correctColor = Color.green;
-    public Color wrongColor = Color.red;
-    public TaskIndicator[] taskIndicators;
-    public Image game2Location;
+    private int currentIndex = 0;
     //Vector2 worldMin = new Vector2(-3.9f, -35.72f);
     //Vector2 worldMax = new Vector2(51.89f, 12.04f);
 
@@ -113,39 +110,7 @@ public class GameManager : MonoBehaviour
             codeSlotsText[i].text = code[i].ToString();
         }
     }
-    public void CorrectLetter(int index)
-    {
-        codeSlotsImage[index].color = correctColor;
-    }
-    public void wrongtLetter(int index)
-    {
-        for (int i = 0; i < codeSlotsImage.Length; i++)
-        {
-            codeSlotsImage[i].color = wrongColor;
-        }
-
-        Invoke(nameof(Reset), 1.0f);
-    }
-    private void Reset()
-    {
-        for (int i = 0; i < codeSlotsImage.Length; i++)
-        {
-            codeSlotsImage[i].color = defaultColor;
-        }
-    }
-    private void completada()
-    {
-        if (successIndicator != null)
-            successIndicator.color = Color.green;
-        Destroy(game2Location);
-        changeIndicatorTask(1);
-    }
-    private void changeIndicatorTask(int index)
-    {
-        taskIndicators[index].MarcarCompletado();
-    }
-    public void SendActive(int index)
-    {
+    public void SendActive(int index){
         var msg = new NetworkMessage
         {
             type = "StartCode",

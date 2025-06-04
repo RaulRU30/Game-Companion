@@ -5,11 +5,8 @@ public class PanelSwitcher : MonoBehaviour
     public GameObject panelDashboard;
     public GameObject panelGame1;
     public GameObject panelGame2;
-<<<<<<< HEAD
     public GameObject minimap;
-=======
     public KeyTracker keyTracker;
->>>>>>> b1244a1516988fff1e1d8eebee47d0f09eb62e59
     public GameManager gameManager;
     public GameObject game2Location;
 
