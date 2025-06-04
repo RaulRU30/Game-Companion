@@ -72,6 +72,9 @@ public class GameManager : MonoBehaviour
                 if (message.payload.state == 3)//tarea completada
                     OnCodeCompleted();
                 break;
+            case "TaskComplate":
+                ChangeComplateTask(message.payload.state);
+                break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
                 break;
