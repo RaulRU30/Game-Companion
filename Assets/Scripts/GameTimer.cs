@@ -67,11 +67,11 @@ public class GameTimer : MonoBehaviour
     {
         timerText.text = "GAME OVER";
         Debug.Log("Se acabo el tiempo");
-        //aqui es una prueba
-        foreach (TaskIndicator ti in taskIndicators)
-        {
-            ti.MarcarCompletado();
-        }
+        // //aqui es una prueba
+        // foreach (TaskIndicator ti in taskIndicators)
+        // {
+        //     ti.MarcarCompletado();
+        // }
 
         StartCoroutine(LoadGameOverScene());
     }
