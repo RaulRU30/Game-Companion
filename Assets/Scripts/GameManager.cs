@@ -290,7 +290,7 @@ public class GameManager : MonoBehaviour
     if (todasRecolectadas && panelSwitcher != null)
     {
         Debug.Log("✅ Todas las llaves recolectadas. Regresando al dashboard...");
-        panelSwitcher.ReturnToDashboard()`;
+        panelSwitcher.ReturnToDashboard();
     }
     }
 }
