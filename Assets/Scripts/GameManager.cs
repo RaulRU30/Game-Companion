@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
                     OnCodeCompleted();
                 break;
             case "TaskComplate":
-                
+                ChangeComplateTask(message.payload.state);
                 break;
             default:
                 Debug.LogWarning("Unknown message type: " + message.type);
